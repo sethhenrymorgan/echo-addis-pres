@@ -1,0 +1,626 @@
+
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usetheme{Madrid} 
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage{amsmath, amsthm, amssymb, mathrsfs}
+\usepackage{sansmathaccent}
+\pdfmapfile{+sansmathaccent.map}
+
+\usepackage[
+    backend=biber,
+    style=authoryear-icomp,
+    sortlocale=de_DE,
+    natbib=true,
+    url=false, 
+    doi=true,
+    eprint=false
+]{biblatex}
+\addbibresource{/Users/Seth/Documents/BibTex/ICRAF_Literature-Methods.bib}
+ 
+%Information to be included in the title page:
+\title{Your Eyes in the Sky}
+\subtitle{Using Remote Sensing to Improve Planning, Data Collection and Impact Evaluation}
+\author{Seth Morgan}
+\institute[UIUC] 
+{
+  \inst{1}%
+  The Department of Agricultural \& Consumer Economics\\
+  The University of Illinois at Urbana-Champaign\\
+  The World Agroforestry Centre (ICRAF)
+  
+}
+
+\date[ECHO 2016] % (optional)
+{ECHO Best Practices in Highland Areas Symposium, November 2016}
+ 
+ 
+ 
+\begin{document}
+ 
+\frame{\titlepage}
+ 
+\begin{frame}
+\frametitle{Table of Contents}
+\tableofcontents
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}
+\frametitle{Background}
+\begin{columns}
+ \begin{column}[T]{.6\textwidth}
+  \includegraphics[width=\columnwidth]{visign}
+ \end{column}
+ \begin{column}[T]{.4\textwidth}
+  \textbf{Vi Agroforestry:}
+  \begin{itemize}
+   \item Swedish NGO
+   \item Reforestation and agroforestry promotion in Western Kenya since 1980s
+   \item Expanded to Bungoma and Kakamega in 2008
+   \item Site chosen for long-term impact evaluation
+  \end{itemize}
+ \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Background}
+ \begin{columns}
+  \begin{column}[T]{0.4\textwidth}
+   \includegraphics[width=\columnwidth]{icrafspia}
+  \end{column}
+  \begin{column}[T]{0.6\textwidth}
+   \textbf{ICRAF:}
+   \begin{itemize}
+    \item CGIAR Standing Panel on Impact Assessment grant for underevaluated areas
+	\item ICRAF engaged in partnership with Vi through 90s and 2000s
+	\item Extent of ICRAF knowledge transfer is empirical question
+	\item Opportunity to examine long-term household-level impacts of agroforestry
+   \end{itemize}
+  \end{column}
+ \end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Research Questions}
+
+\begin{block}{Primary Research Question}
+What are the downstream socio-economic and land health effects of agroforestry adoption in Kenya?
+\end{block}
+
+\begin{block}{Sub-Question}
+Can we improve the rigor of a pseudo-experimental research design by choosing a comparison group using matching over geospatial variables?
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Why Use Maps \& Remote Sensing?}
+
+\begin{block}{Why We Needed Spatial Data}
+ \begin{enumerate}
+  \item No baseline data for non-program participants
+  \item Treatment (the agroforestry extension program) assigned non-randomly
+  \item Reason to believe geography and landscape play a part in treatment assignment and impacts
+ \end{enumerate}
+\end{block}
+\pause
+
+\begin{block}{Other Reasons to Look at Spatial Data}
+\begin{itemize}
+\item Space matters
+\item People are visual
+\item The available data is improving quickly
+\item Available datasets include information on soil, rainfall, tree cover, population, elevation and more
+\item Freely available tools
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{What is Available?}
+
+\begin{itemize}
+	\item Geography
+	\begin{itemize}
+		\item Global Administrative Areas: gadm.org
+		\item ILRI GIS database
+		\item FAO Geonetwork: fao.org/geonetwork
+		\item OpenStreetMap
+		\item USGS Earth Explorer: earthexplorer.usgs.gov
+		\item WorldPop Population Density: worldpop.org.uk
+	\end{itemize}
+	\item Forests and Tree Cover
+	\begin{itemize}
+		\item Global Land Cover Facility: landcover.org
+		\item Global Forest Change: earthenginepartners.appspot.com
+		\item USGS Land Cover: landcover.usgs.gov
+	\end{itemize}
+	\item Soil 
+	\begin{itemize}
+		\item ICRAF Landscapes Portal: landscapeportal.org
+		\item Africa Soil Information System: africasoils.net
+	\end{itemize}
+	\item Climate
+	\begin{itemize}
+		\item CHIRPS Precipitation: chg.geog.ucsb.edu/data/chirps
+		\item NOAA Climate Data Online: ncdc.noaa.gov/cdo-web
+	\end{itemize}
+\end{itemize}
+	
+\end{frame}
+
+\begin{frame}
+\frametitle{How can I analyse this stuff?}
+\begin{columns}
+ \begin{column}[T]{0.6\textwidth}
+  \includegraphics[width=\columnwidth]{earthexplorer}
+ \end{column}
+ \begin{column}[T]{0.4\textwidth}
+  \textbf{Three kinds of tools:}
+	\begin{itemize}
+	 \item Geographic Information System (GIS)
+	   \begin{itemize}
+		\item QGIS
+		\item ArcGIS
+		\item R
+	   \end{itemize}
+	 \item Data Collection Tool
+	  \begin{itemize}
+		\item ODK Collect
+		\item ona.io
+	  \end{itemize}
+	 \item Data Analysis Tool
+	  \begin{itemize}
+		\item R
+		\item Stata
+		\item SPSS
+		\item Excel
+		\item LibreOffice Calc
+	  \end{itemize}
+	\end{itemize}
+ \end{column}
+\end{columns}
+	
+\end{frame}
+
+\section{Planning: QGIS}
+
+\begin{frame}
+\frametitle{Intro to QGIS}
+	\begin{columns}
+	 \begin{column}[T]{.6\textwidth}
+		\includegraphics[width=0.75\columnwidth]{qgislogo}
+		
+		\includegraphics[width=\columnwidth]{qgisscreenshot}
+	 \end{column}
+	 \begin{column}[T]{.4\textwidth}
+		\begin{itemize}
+		\item Free GIS system
+		\item Access to plugins for OpenStreetMap, Google Maps
+		\item Can utilize algorithms from R, GRASS & SAGA for geoprocessing
+		\item Can build map projects and assemble map layouts for publication and sharing
+		\end{itemize}
+	 \end{column}	
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Types of Data}
+\textbf{Vector Data}: points, lines and ploygons
+ \begin{figure}[h]
+  \centering
+  \includegraphics[width=0.75\textwidth]{vectorexample}
+ \end{figure}
+ 
+ \begin{itemize}
+ \item Used for depicting roads, borders and centers of things.
+ \item \textbf{File Types}: .shp (plus .dbf & .shx), .rds
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Types of Data}
+\begin{columns}
+ \begin{column}[T]{.6\textwidth}
+   \includegraphics[width=\columnwidth]{rasterexample}
+ \end{column}  
+ \begin{column}[T]{0.4\textwidth}
+  \textbf{Raster Data}: Grid cells with numbered values
+  \begin{itemize}
+  \item Used for terrain and representing the value of variables like rainfall across space.
+  \item Can overlay with vectors and perform calculations on values
+  \item \textbf{File Types}: .tif, .asc, .jpg, .png 
+  \end{itemize}
+ \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Examining Data}
+ \textbf{Attribute Table}: Spreadsheet data connected to your shapefile
+ \begin{figure}[h]
+  \includegraphics[width=0.75\textwidth]{attributetable}
+ \end{figure}
+ 
+  \begin{itemize}
+  \item Data is saved in .dbf file
+  \item Limited manipulation within QGIS
+  \item Can be analysed or edited in Excel or other program
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Geoprocessing Functions}
+ \begin{columns}
+  \begin{column}[T]{0.6\textwidth}
+   \includegraphics[width=\columnwidth]{geoprocessing}
+  \end{column}
+  
+  \begin{column}[T]{0.4\textwidth}
+   \textbf{Useful Functions:}
+   \begin{itemize}
+    \item Clip
+    \item Buffer
+    \item v.distance (GRASS)
+    \item Zonal Statistics
+    \item v.what.rast.points (GRASS) or Add raster values to points (SAGA)
+   \end{itemize}
+  \end{column}
+ \end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Map Layouts}
+ \begin{columns}
+  \begin{column}[T]{0.8\textwidth}
+   \includegraphics[width=\columnwidth]{treecoverlayout}
+  \end{column}
+  \begin{column}[T]{0.2\textwidth}
+   \textbf{TOSSLAD:}
+	\begin{itemize}
+	 \item Title
+	 \item Origin
+	 \item Source
+	 \item Scale
+	 \item Legend
+	 \item Author
+	 \item Date
+	\end{itemize}
+  \end{column}	
+ \end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: Site Scoping and Sublocation Matching}
+\begin{columns}
+ \begin{column}[T]{0.4\textwidth}
+  \includegraphics[width=\columnwidth]{UyomaSoil}
+ \end{column}
+ \begin{column}[T]{0.6\textwidth}
+  \includegraphics[width=\columnwidth]{SirisiaSubLoc}
+ \end{column}
+\end{columns}
+  
+\end{frame}
+
+\section{Data Collection: ODK Collect and ona.io}
+
+\begin{frame}
+\frametitle{ODK Collect}
+ \begin{columns}
+  \begin{column}[T]{0.4\textwidth}
+   \includegraphics[width=\columnwidth]{odkscreenlogo}
+  \end{column}  
+  \begin{column}[T]{0.6\textwidth}
+   \begin{itemize}
+    \item Mobile platform for data collection
+	\item Takes geocodes, photos, text, multiple choice
+	\item Works offline, then uploads with network
+	\item Requires Android smartphone or table with SD card
+   \end{itemize}
+  \end{column}
+ \end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Creating Forms for ODK}
+  \begin{columns}
+  \begin{column}[T]{0.6\textwidth}
+   \includegraphics[width=\columnwidth]{xlsformodkbuild}
+  \end{column}  
+  \begin{column}[T]{0.4\textwidth}
+   \begin{itemize}
+    \item build.opendatakit.org provides free form builder app
+	\item For longer or more complex forms, create in Excel or LibreOffice
+	\item Instructions available at xlsform.org
+	\item Upload to ona.io or opendatakit.org/xiframe to convert for use in ODK Collect
+   \end{itemize}
+  \end{column}
+ \end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Aggregating data on ona.io}
+ \begin{columns}
+  \begin{column}[T]{0.6\textwidth}
+   \includegraphics[width=\columnwidth]{onahome}
+  \end{column}  
+  \begin{column}[T]{0.4\textwidth}
+  
+   \begin{itemize}
+    \item Free account for public data
+	\item Collect and store data in the cloud
+	\item Display geocoded data on a map
+	\item Export survey data as a spreadsheet
+   \end{itemize}
+   
+    \textbf{Alternatives:}
+    \begin{itemize}
+	 \item KoBo Collect
+	 \item CommCare
+	 \item ODK Briefcase 
+	\end{itemize}
+	
+  \end{column}
+ \end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: Village Data Collection}
+\begin{columns}
+ \begin{column}[T]{0.6\textwidth}
+  \includegraphics[width=\columnwidth]{mamapriscah}
+ \end{column}
+ \begin{column}[T]{0.4\textwidth}
+  \textbf{Village Survey Questions}
+  \begin{itemize}
+   \item How many households in the village?
+   \item How many active farmer groups?
+   \item When were the groups formed?
+   \item What activities do they pursue?
+   \item Geocode collection
+  \end{itemize}
+ \end{column}
+\end{columns}
+
+\end{frame}
+
+
+\section{Analysis: R}
+
+\begin{frame}
+\frametitle{What is R?}
+\begin{columns}
+ \begin{column}[T]{0.6\textwidth}
+  \includegraphics[width=0.6\columnwidth]{rlogos}
+  
+  \includegraphics[width=\columnwidth]{rstudio}
+ \end{column} 
+ \begin{column}[T]{0.4\textwidth}
+  "A language and environment for statistical computing and graphics"
+  \medskip
+  
+  \textbf{Essential Packages:}
+  \begin{itemize}
+   \item rstudio 
+   \item dplyr
+   \item readr
+   \item tidyr
+   \item tidyverse
+   \item ggplot2
+  \end{itemize}
+ \end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{R Pros and Cons}
+ \begin{columns}
+  \begin{column}[T]{0.5\textwidth}
+   \textbf{Why Use R}
+   \begin{itemize}
+    \item Extremely adaptable
+    \item Widely available
+    \item Results are reproducible
+    \item Enthusiastic user community
+	\item Growing library of packages and documentation
+   \end{itemize}
+  \end{column} 
+  \begin{column}[T]{0.5\textwidth}
+   \textbf{Why Not to Use R}
+   \begin{itemize}
+    \item Not intuitive for beginners
+	\item Minimal GUI: have to learn some code
+    \item Difficult to examine data
+    \item No centralized help system
+   \end{itemize}
+  \end{column}
+ \end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example: Village Matching}
+
+\textbf{Objective:} assemble a sampling frame made up of villages in which treatment and comparison villages are statistically indistinguishable across the following variables:
+
+\begin{itemize}
+\item Number of Households 
+\item Average Soil Sand Content \parencite{Vagen2016}
+\item Average Soil pH \parencite{Vagen2016}
+\item Average Soil Organic Carbon \parencite{Vagen2016}
+\item Average Tree Cover in 2005 \parencite{Sexton2013}
+\item Elevation \parencite{Jarvis2008, Kruskac}
+\item Average Population Density in 2010 and 2015 \parencite{Stevens2015}
+\item Average Rainfall \parencite{Funk2015a}
+\item Distance to Tarmac Road
+\item Binary for Villages 0.25 m from Tarmac Road ("on road")
+\item Binary for presence of microfinance activities
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Village Matching Model}
+\textbf{Propensity Score:} The probability of receiving treatment, conditional on the covariates.
+
+\begin{equation*}
+e(X_i) = Pr(T_i = 1 | X_i)
+\end{equation}
+
+The score is generated with a probit regression, a regression model in which the outcome is binary (0/1, Treatment/Control):
+
+\begin{equation*}
+z = X\beta + \epsilon
+\end{equation}
+
+Where z is an unobserved variable and y is the observed binary corresponding to treatment assignment such that:
+
+\begin{equation*}
+y_i= \left \{ 
+	\begin{tabular}{c}
+	1 if z_i \geq 0 \\
+	0 if z_i \leq 0 \\
+	\end{tabular}
+\end{equation} 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Matching Results: Selected Village Points}
+\includegraphics[width=\textwidth]{selectedvils}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Matching Results: Selected Village Points}
+
+\begin{table}[ht]\centering
+\caption{Balance Statistics for Selected Villages}
+\begin{tabular}{rrrr}
+ \hline
+ & Mean Difference & P-Value \\ 
+  \hline
+Households  &       16.83         &      (0.82)\\
+Sand        &      -176.0         &     (-1.25)\\
+pH          &      -1.950         &     (-1.14)\\
+Tree Cover 2005      &      -0.134         &     (-0.30)\\
+Elevation       &      -12.90         &     (-0.49)\\
+Population 2010       &      0.0789         &      (0.36)\\
+Soil Organic Carbon         &       27.20         &      (0.17)\\
+Average Rainfall  &       3.614         &      (0.99)\\
+Distance too Major Road  &   -0.000186         &     (-0.06)\\
+On Major Road     &      0.0323         &      (0.58)\\
+\hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Matching Results: Actual Village Points}
+\includegraphics[width=\textwidth]{actualvils}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Matching Results: Actual Village Points}
+
+% latex table generated in R 3.3.1 by xtable 1.8-2 package
+% Sun Oct 30 20:47:15 2016
+\begin{table}[ht]
+\centering
+\caption{Balance Statistics Post Data Collection} 
+\begin{tabular}{rrrr}
+  \hline
+ & Comparison & Treatment & P-Value \\ 
+  \hline
+pH & 5.94 & 5.96 & 0.19 \\ 
+  Sand & 19.38 & 20.63 & 0.38 \\ 
+  Soil Organic Carbon & 26.67 & 24.37 & 0.05 \\ 
+  Elevation & 1568.06 & 1569.20 & 0.97 \\ 
+  Population Density 2010 & 4.43 & 4.39 & 0.86 \\ 
+  Population Density 2015 & 5.54 & 5.49 & 0.86 \\ 
+  Average Rainfall & 138.76 & 134.51 & 0.15 \\ 
+  Tree Cover 2005 & 6.15 & 5.99 & 0.73 \\ 
+  Distance to Major Road & 0.03 & 0.03 & 0.75 \\ 
+  On Major Road & 0.03 & 0.02 & 0.55 \\ 
+   \hline
+\end{tabular}
+
+\end{table}
+
+\end{frame}
+
+
+\section{Conclusion}
+
+\begin{frame}
+\frametitle{Lessons Learned}
+
+\textbf{Lessons for Impact Evaluations}
+\begin{itemize}
+ \item Scoping takes time
+ \item Take the time to get all stakeholders on board
+ \item Recruiting comparisons takes 2-3 times the investment as treatment
+ \item Respect respondents' wishes and expectations, even when you can't fulfil them
+ \item Remote sensing data is useful, but not perfect
+ \item Use remote sensing to complement local information, not supplant it
+ \item Take note of opportunities for capacity building with local staff
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Thanks}
+\centering
+
+The University of Illinois at Urbana Champaign Department of Agricultural and Consumer Economics
+\medskip
+
+The World Agroforestry Centre
+\medskip
+
+Vi Agroforestry Kenya
+\medskip
+
+Borlaug Fellowship in Food Security
+\medskip
+
+Dr. Katherine Baylis (UIUC)
+\medskip
+
+Dr. Karl Hughes (ICRAF)
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Questions and Follow-up}
+
+\begin{block}{Contact}
+smorgan9@illinois.edu
+
+sethhenrymorgan@gmail.com
+\end{block}
+
+\end{frame}
+
+\begin{frame}[shrink]
+\frametitle{Bibliography}
+ \printbibliography
+\end{frame}
+
+\end{document}
+
